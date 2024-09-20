@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservices.gryphonnetworks.com/certify" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:axis2="http://webservices.gryphonnetworks.com/certify" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://webservices.gryphonnetworks.com/certify">
+    <wsdl:documentation>
+        Certify Contact Service
+    </wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://webservices.gryphonnetworks.com/certify">
+            <xs:simpleType name="certifyDateTimeWithTimezone">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}:[0-9]{2}(Z|[+\-]?[0-9]{2}[:]*[0-9]{2}))?"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:complexType name="ConsumerInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="consumerID" type="xs:string"/>
+                    <xs:element minOccurs="0" name="houseHoldID" type="xs:string"/>
+                    <xs:element minOccurs="0" name="surrogateID" type="xs:string"/>
+                    <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="emailAddress" type="xs:string"/>
+                    <xs:element minOccurs="0" name="zipCode" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="MailAddress">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="prefix" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="middleName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="suffix" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="businessName" nillable="true" type="xs:string"/>
+                    <xs:element name="address1" type="xs:string"/>
+                    <xs:element minOccurs="0" name="address2" nillable="true" type="xs:string"/>
+                    <xs:element name="city" type="xs:string"/>
+                    <xs:element name="state" type="xs:string"/>
+                    <xs:element name="zipCode" type="xs:string"/>
+                    <xs:element minOccurs="0" name="zipCode4" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="country" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CertifyPreferenceValue">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="value" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="preferenceName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="preferenceDate" nillable="true" type="tns:certifyDateTimeWithTimezone"/>
+                    <xs:element default="0" minOccurs="0" name="preferenceRule" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="exemptionName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="exemptionDate" nillable="true" type="tns:certifyDateTimeWithTimezone"/>
+                    <xs:element minOccurs="0" name="country" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="refKey" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="refData" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="consumerInfo" nillable="true" type="tns:ConsumerInfo"/>
+                    <xs:element default="0" minOccurs="0" name="status" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="valueType" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="valueSource" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="shortCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="userID" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="doNotContactDate" nillable="true" type="tns:certifyDateTimeWithTimezone"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CertifyMailPreferenceValue">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="value" type="tns:MailAddress"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="preferenceName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="preferenceDate" nillable="true" type="tns:certifyDateTimeWithTimezone"/>
+                    <xs:element default="0" minOccurs="0" name="preferenceRule" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="exemptionName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="exemptionDate" nillable="true" type="tns:certifyDateTimeWithTimezone"/>
+                    <xs:element minOccurs="0" name="refKey" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="refData" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="consumerInfo" nillable="true" type="tns:ConsumerInfo"/>
+                    <xs:element default="0" minOccurs="0" name="status" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="valueType" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="valueSource" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="shortCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="userID" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="doNotContactDate" nillable="true" type="tns:certifyDateTimeWithTimezone"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CertifyChannelInfo">
+                <xs:sequence>
+                    <xs:element name="channelType" type="xs:string"/>
+                    <xs:element minOccurs="0" name="channelStatus" type="xs:int"/>
+                    <xs:element minOccurs="0" name="channelText" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="phoneNumber" nillable="true" type="tns:CertifyPreferenceValue"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="emailAddress" nillable="true" type="tns:CertifyPreferenceValue"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="textAddress" nillable="true" type="tns:CertifyPreferenceValue"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="mailAddress" nillable="true" type="tns:CertifyMailPreferenceValue"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CertificationResults">
+                <xs:sequence>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="value" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CertificationDetails">
+                <xs:sequence>
+                    <xs:element name="value" type="xs:string"/>
+                    <xs:element minOccurs="0" name="campaignName" type="xs:string"/>
+                    <xs:element minOccurs="0" name="preferenceName" type="xs:string"/>
+                    <xs:element name="status" type="xs:int"/>
+                    <xs:element default="0" minOccurs="0" name="statusText" nillable="true" type="xs:string"/>
+                    <xs:element name="error" type="xs:int"/>
+                    <xs:element name="country" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="results" nillable="true" type="tns:CertificationResults"/>
+                    <xs:element minOccurs="0" name="shortCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="refKey" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="refData" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CertificationMailDetails">
+                <xs:sequence>
+                    <xs:element name="value" type="tns:MailAddress"/>
+                    <xs:element minOccurs="0" name="campaignName" type="xs:string"/>
+                    <xs:element minOccurs="0" name="preferenceName" type="xs:string"/>
+                    <xs:element name="status" type="xs:int"/>
+                    <xs:element default="0" minOccurs="0" name="statusText" nillable="true" type="xs:string"/>
+                    <xs:element name="error" type="xs:int"/>
+                    <xs:element name="country" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="results" nillable="true" type="tns:CertificationResults"/>
+                    <xs:element minOccurs="0" name="shortCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="refKey" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="refData" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CertifyChannelResp">
+                <xs:sequence>
+                    <xs:element name="channelType" nillable="true" type="xs:string"/>
+                    <xs:element name="channelStatus" type="xs:int"/>
+                    <xs:element minOccurs="0" name="channelText" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="phoneNumber" nillable="true" type="tns:CertificationDetails"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="emailAddress" nillable="true" type="tns:CertificationDetails"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="textAddress" nillable="true" type="tns:CertificationDetails"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="mailAddress" nillable="true" type="tns:CertificationMailDetails"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="WirelessContactResp">
+                <xs:sequence>
+                    <xs:element name="status" type="xs:int"/>
+                    <xs:element default="0" minOccurs="0" name="statusText" nillable="true" type="xs:string"/>
+                    <xs:element name="value" type="xs:string"/>
+                    <xs:element name="country" type="xs:string"/>
+                    <xs:element minOccurs="0" name="wireless" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="refKey" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="refData" nillable="true" type="xs:string"/>
+                    <xs:element name="error" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GryphonWSFault">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="errorMessage" type="xs:string"/>
+                        <xs:element name="errorCode" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="RequestInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="alternateLicenseID" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="userID" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="emailAddress" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="campaignName" nillable="true" type="xs:string"/>
+                    <xs:element default="0" minOccurs="0" name="verbose" nillable="true" type="xs:int"/>
+                    <xs:element default="0" minOccurs="0" name="certifyRule" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="providerName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="recordID" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="certifyRuleName" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="certifyContactRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="licenseID" type="xs:string"/>
+                        <xs:element name="rInfo" type="tns:RequestInfo"/>
+                        <xs:element maxOccurs="unbounded" name="cInfo" type="tns:CertifyChannelInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="certifyContactResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="statusCode" type="xs:int"/>
+                        <xs:element name="statusText" type="xs:string"/>
+                        <xs:element name="certifyDate" type="xs:dateTime"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="cInfo" nillable="true" type="tns:CertifyChannelResp"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="seperateWirelessContactRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="licenseID" type="xs:string"/>
+                        <xs:element name="rInfo" type="tns:RequestInfo"/>
+                        <xs:element maxOccurs="unbounded" name="cInfo" type="tns:CertifyChannelInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="seperateWirelessContactResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="statusCode" type="xs:int"/>
+                        <xs:element name="statusText" type="xs:string"/>
+                        <xs:element name="certifyDate" type="xs:dateTime"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="cInfo" nillable="true" type="tns:WirelessContactResp"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="certifyContactRequestMessage">
+        <wsdl:part name="part1" element="tns:certifyContactRequest"/>
+    </wsdl:message>
+    <wsdl:message name="certifyContactResponseMessage">
+        <wsdl:part name="part1" element="tns:certifyContactResponse"/>
+    </wsdl:message>
+    <wsdl:message name="gryphonWSFault">
+        <wsdl:part name="part1" element="tns:GryphonWSFault"/>
+    </wsdl:message>
+    <wsdl:message name="seperateWirelessContactRequestMessage">
+        <wsdl:part name="part1" element="tns:seperateWirelessContactRequest"/>
+    </wsdl:message>
+    <wsdl:message name="seperateWirelessContactResponseMessage">
+        <wsdl:part name="part1" element="tns:seperateWirelessContactResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="CertifyContactPortType">
+        <wsdl:operation name="certifyContact">
+            <wsdl:input message="tns:certifyContactRequestMessage" wsaw:Action="urn:certifyContact"/>
+            <wsdl:output message="tns:certifyContactResponseMessage" wsaw:Action="http://webservices.gryphonnetworks.com/certify/CertifyContactPortType/certifyContactResponse"/>
+            <wsdl:fault message="tns:gryphonWSFault" name="gryphonWSFault" wsaw:Action="urn:certifyContactgryphonWSFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="seperateWirelessContact">
+            <wsdl:input message="tns:seperateWirelessContactRequestMessage" wsaw:Action="urn:seperateWirelessContact"/>
+            <wsdl:output message="tns:seperateWirelessContactResponseMessage" wsaw:Action="http://webservices.gryphonnetworks.com/certify/SeperateWirelessContactPortType/seperateWirelessContactResponse"/>
+            <wsdl:fault message="tns:gryphonWSFault" name="gryphonWSFault" wsaw:Action="urn:seperateWirelessContactgryphonWSFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CertifyContactSOAP11Binding" type="tns:CertifyContactPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="certifyContact">
+            <soap:operation soapAction="urn:certifyContact" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="gryphonWSFault">
+                <soap:fault use="literal" name="gryphonWSFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="seperateWirelessContact">
+            <soap:operation soapAction="urn:seperateWirelessContact" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="gryphonWSFault">
+                <soap:fault use="literal" name="gryphonWSFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="CertifyContactSOAP12Binding" type="tns:CertifyContactPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="certifyContact">
+            <soap12:operation soapAction="urn:certifyContact" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="gryphonWSFault">
+                <soap12:fault use="literal" name="gryphonWSFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="seperateWirelessContact">
+            <soap12:operation soapAction="urn:seperateWirelessContact" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="gryphonWSFault">
+                <soap12:fault use="literal" name="gryphonWSFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CertifyContact">
+        <wsdl:port name="CertifyContactSOAP11port_http" binding="tns:CertifyContactSOAP11Binding">
+            <soap:address location="http://testwebsvcs.gryphon.ai:8080/CoreServices40/services/CertifyContact.CertifyContactSOAP11port_http/"/>
+        </wsdl:port>
+        <wsdl:port name="CertifyContactSOAP12port_http" binding="tns:CertifyContactSOAP12Binding">
+            <soap12:address location="http://testwebsvcs.gryphon.ai:8080/CoreServices40/services/CertifyContact.CertifyContactSOAP12port_http/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
